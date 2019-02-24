@@ -1,6 +1,5 @@
 package com.example;
 
-
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,43 +20,30 @@ import java.util.Map;
 
 @Controller
 public class ControllerToo {
-	  @Value("${spring.datasource.url}")
-	  private String dbUrl;
+	@Value("${spring.datasource.url}")
+	private String dbUrl;
 
-	  @Autowired
-	  private DataSource dataSource;
+	@Autowired
+	private DataSource dataSource;
 
-	  @RequestMapping("/db2")
-	  String db(Map<String, Object> model) {
-	    try (Connection connection = dataSource.getConnection()) {
-	      Statement stmt = connection.createStatement();
-	      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks2 (tick timestamp)");
-	      stmt.executeUpdate("INSERT INTO ticks2 VALUES (now())");
-	      ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks2");
+	@RequestMapping("/db2")
+	String db2(Map<String, Object> model) {
+		try (Connection connection = dataSource.getConnection()) {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks2 (tick timestamp)");
+			stmt.executeUpdate("INSERT INTO ticks2 VALUES (now())");
+			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks2");
 
-	      ArrayList<String> output = new ArrayList<String>();
-	      while (rs.next()) {
-	        output.add("Read from DB: " + rs.getTimestamp("tick"));
-	      }
+			ArrayList<String> output = new ArrayList<String>();
+			while (rs.next()) {
+				output.add("Read from DB: " + rs.getTimestamp("tick"));
+			}
 
-	      model.put("records", output);
-	      return "db2";
-	    } catch (Exception e) {
-	      model.put("message", e.getMessage());
-	      return "error";
-	    }
-	  }
-
-	  @Bean
-	  public DataSource dataSource() throws SQLException {
-	    if (dbUrl == null || dbUrl.isEmpty()) {
-	      return new HikariDataSource();
-	    } else {
-	      HikariConfig config = new HikariConfig();
-	      config.setJdbcUrl(dbUrl);
-	      return new HikariDataSource(config);
-	    }
-	  }
-
-	  
+			model.put("records", output);
+			return "db2";
+		} catch (Exception e) {
+			model.put("message", e.getMessage());
+			return "error";
+		}
+	}
 }
