@@ -36,7 +36,7 @@ public class SetupController {
 		try {
 			//String value = new String(Files.readAllBytes(Paths.get(getClass().getResource("schema.sql").toURI())));
 			
-			URL url = getClass().getResource("schema.sql");
+			URL url = new URL("https://raw.githubusercontent.com/payne/toa2-java/master/src/main/resources/schema.sql");
 			File myFile = new File(url.toURI());
 
 			String value = FileUtils.readFileToString(myFile, "UTF-8"); 
