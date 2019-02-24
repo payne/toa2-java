@@ -48,6 +48,7 @@ public class SetupController {
 			while (null != (line=in.readLine())) {
 				if (line.trim().length()==0) {
 					messages.add(statement);
+					executeSql(statement);
 					statement="";
 				} else {
 					statement += line +"\n";
@@ -61,4 +62,14 @@ public class SetupController {
 
 		return "setup";
 	}
+	
+	private void executeSql(String sql) {
+		 try (Connection connection = dataSource.getConnection()) {
+		      Statement stmt = connection.createStatement();
+		      stmt.executeUpdate(sql);
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+	}
+	
 }
