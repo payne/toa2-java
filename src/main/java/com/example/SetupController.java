@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.sql.DataSource;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -37,9 +39,9 @@ public class SetupController {
 			//String value = new String(Files.readAllBytes(Paths.get(getClass().getResource("schema.sql").toURI())));
 			
 			URL url = new URL("https://raw.githubusercontent.com/payne/toa2-java/master/src/main/resources/schema.sql");
-			File myFile = new File(url.toURI());
+			//InputStream in = url.openStream();
 
-			String value = FileUtils.readFileToString(myFile, "UTF-8"); 
+			String value = IOUtils.toString(url);
 
 			model.put("msg", value);
 
