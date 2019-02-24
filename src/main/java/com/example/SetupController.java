@@ -36,6 +36,7 @@ public class SetupController {
 
 		} catch (Exception e) {
 			model.put("msg", e.toString());
+			e.printStackTrace();
 		}
 
 		return "setup";
