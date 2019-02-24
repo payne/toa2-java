@@ -30,7 +30,7 @@ public class SetupController {
 	@RequestMapping("/setup")
 	String db(Map<String, Object> model) {
 		try {
-			String value = new String(Files.readAllBytes(Paths.get(getClass().getResource("/schema.sql").toURI())));
+			String value = new String(Files.readAllBytes(Paths.get(getClass().getResource("schema.sql").toURI())));
 
 			model.put("msg", value);
 
