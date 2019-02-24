@@ -27,7 +27,7 @@ public class SetupController {
 	@Autowired
 	private DataSource dataSource;
 
-	@RequestMapping("/db")
+	@RequestMapping("/setup")
 	String db(Map<String, Object> model) {
 		try {
 			String value = new String(Files.readAllBytes(Paths.get(getClass().getResource("schema.sql").toURI())));
