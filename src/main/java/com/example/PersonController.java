@@ -15,11 +15,12 @@ public class PersonController  extends SqlController   {
 		 try (Connection connection = dataSource.getConnection()) {
 		      Statement stmt = connection.createStatement();
 		      ResultSet rs = stmt.executeQuery("SELECT * FROM tags");
-
+System.out.println("Running selecting * from tags;");
 		      ArrayList<String> output = new ArrayList<String>();
 		      while (rs.next()) {
 		        output.add(rs.getString("tag"));
 		      }
+		      System.out.println(output);
 		      model.put("tags", output);
 		 } catch (Exception e) {
 			 e.printStackTrace();
