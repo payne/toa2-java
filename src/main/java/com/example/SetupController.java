@@ -32,9 +32,8 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class SetupController {
-	@Autowired
-	private DataSource dataSource;
+public class SetupController extends SqlController {
+
 
 	@RequestMapping("/setup")
 	String db(Map<String, Object> model) {
@@ -63,13 +62,6 @@ public class SetupController {
 		return "setup";
 	}
 	
-	private void executeSql(String sql) {
-		 try (Connection connection = dataSource.getConnection()) {
-		      Statement stmt = connection.createStatement();
-		      stmt.executeUpdate(sql);
-		    } catch (Exception e) {
-		    	e.printStackTrace();
-		    }
-	}
+
 	
 }
