@@ -8,7 +8,9 @@
 <div class="container">
   <h1>TAGS.HTML: Database Output</h1>
   <ul th:each="tag : ${tags}">
-    <li th:text="${tag}"/>
+    <li>
+      <INPUT TYPE="checkbox" NAME="th:text="${tag.id}" CHECKED>th:text="${tag.tag}"
+    </li>
   </ul>
 </div>
 
